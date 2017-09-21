@@ -9,7 +9,7 @@ brew "curl"
 brew "jpeg", args: ["universal"]
 brew "libusb-compat", args: ["universal"]
 brew "mas"
-brew "node"
+brew "nvm"
 brew "wget"
 brew "yarn"
 

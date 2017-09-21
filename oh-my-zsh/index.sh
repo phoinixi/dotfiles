@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ZSH=~/.oh-my-zsh
 
 if [ -d "$ZSH" ]; then
