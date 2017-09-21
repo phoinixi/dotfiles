@@ -3,8 +3,10 @@ e_header "Installing Oh my zsh!"
 source oh-my-zsh/index.sh
 e_header "Setting up mac os X"
 source osx/index.sh
+e_header "Setting VSCODE"
+source vscode/index.sh
 
-#	GIT
+# GIT
 e_header "Setting up GIT"
 cp git/.gitignore ~/.gitignore_global
 cp git/.gitconfig ~/.gitconfig
