@@ -40,6 +40,7 @@ cask "osxfuse"
 cask "recordit"
 cask "spectacle"
 mas "The Unarchiver", id: 425424353
+cask "tmux"
 
 # others
 mas "Telegram", id: 747648890
