@@ -37,23 +37,23 @@ is_file_exists() {
 }
 
 #Custom echo functions
-ask() {
+e_ask() {
   printf "\n${bold}$@${reset}"
 }
 
-thanks() {
+e_thanks() {
   printf "\n${bold}${purple}$@${reset}\n"
 }
 
-header() {
+e_header() {
   printf "\n${underline}${bold}${green}%s${reset}\n" "$@"
 }
 
-arrow() {
+e_arrow() {
   printf "\n ᐅ $@\n"
 }
 
-success() {
+e_success() {
   printf "\n${green}✔ %s${reset}\n" "$@"
 }
 
@@ -61,7 +61,7 @@ error() {
   printf "\n${red}✖ %s${reset}\n" "$@"
 }
 
-warning() {
+e_warning() {
   printf "\n${tan}ᐅ %s${reset}\n" "$@"
 }
 
@@ -73,7 +73,7 @@ bold() {
   printf "\n${bold}%s${reset}\n" "$@"
 }
 
-note() {
+e_note() {
   printf "\n${underline}${bold}${blue}Note:${reset} ${blue}%s${reset}\n" "$@"
 }
 

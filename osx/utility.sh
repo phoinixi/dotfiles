@@ -7,22 +7,24 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Never go into computer sleep mode
 sudo systemsetup -setcomputersleep Off > /dev/null
+
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
 # Disable hibernation (speeds up entering sleep mode)
 sudo pmset -a hibernatemode 0
-# Remove the sleep image file to save disk space
-sudo rm /private/var/vm/sleepimage
-# Create a zero-byte file instead…
-sudo touch /private/var/vm/sleepimage
-# …and make sure it can’t be rewritten
-sudo chflags uchg /private/var/vm/sleepimage
+
 # Set the timezone; see `sudo systemsetup -listtimezones` for other values
 sudo systemsetup -settimezone "Europe/Rome" > /dev/null
+
 # Enable HiDPI display modes (requires restart)
 sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+
 # Show the /Volumes folder
 sudo chflags nohidden /Volumes
+
+# Show hidden files
+defaults write com.apple.finder AppleShowAllFiles YES
 
 # Disable opening and closing window animations
 defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
@@ -50,19 +52,6 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # Disable Notification Center and remove the menu bar icon
 launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
-# Never go into computer sleep mode
-sudo systemsetup -setcomputersleep Off > /dev/null
-
-# Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
-
-# Remove the sleep image file to save disk space
-sudo rm /private/var/vm/sleepimage
-# Create a zero-byte file instead…
-sudo touch /private/var/vm/sleepimage
-# …and make sure it can’t be rewritten
-sudo chflags uchg /private/var/vm/sleepimage
-
 # Increase sound quality for Bluetooth headphones/headsets
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
@@ -73,14 +62,10 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 # Set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
 # `Inches`, `en_GB` with `en_US`, and `true` with `false`.
-defaults write NSGlobalDomain AppleLanguages -array "en" "nl"
+defaults write NSGlobalDomain AppleLanguages -array "en"
 defaults write NSGlobalDomain AppleLocale -string "en_GB@currency=EUR"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
-
-# Require password immediately after sleep or screen saver begins
-defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 # Enable subpixel font rendering on non-Apple LCDs
 defaults write NSGlobalDomain AppleFontSmoothing -int 1
@@ -99,9 +84,6 @@ defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
-
-# Finder: show hidden files by default
-#defaults write com.apple.finder AppleShowAllFiles -bool true
 
 # Finder: show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true

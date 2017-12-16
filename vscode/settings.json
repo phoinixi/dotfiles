@@ -1,10 +1,9 @@
 {
-  "vsicons.projectDetection.autoReload": true,
   "window.zoomLevel": 0,
   "editor.tabSize": 2,
   "editor.lineHeight": 24,
   "editor.fontLigatures": true,
-  "editor.fontSize": 12,
+  "editor.fontSize": 13,
   "editor.tabCompletion": true,
   "editor.rulers": [
     100
@@ -12,14 +11,35 @@
   "editor.wordWrapColumn": 100,
   "editor.autoIndent": true,
   "editor.formatOnPaste": true,
-  "vsicons.dontShowNewVersionMessage": true,
-  "workbench.colorTheme": "Solarized Dark",
-  "workbench.iconTheme": "vscode-icons",
+  "editor.renderLineHighlight": "all",
+  "eslint.packageManager": "yarn",
+  "eslint.validate": [
+    "javascript"
+  ],
+  "workbench.colorTheme": "Material Theme",
+  "workbench.iconTheme": "eq-material-theme-icons",
   "workbench.activityBar.visible": true,
   "workbench.sideBar.location": "left",
   "terminal.integrated.shell.osx": "/bin/zsh",
   "files.insertFinalNewline": true,
+  "files.autoSave": "onFocusChange",
   "window.restoreFullscreen": true,
   "markdown.preview.breaks": true,
-  "git.enableSmartCommit": true
+  "git.enableSmartCommit": true,
+  "workbench.colorCustomizations": {
+    "activityBarBadge.background": "#C6FF00",
+    "list.activeSelectionForeground": "#C6FF00",
+    "list.inactiveSelectionForeground": "#C6FF00",
+    "list.highlightForeground": "#C6FF00",
+    "scrollbarSlider.activeBackground": "#C6FF0050",
+    "editorSuggestWidget.highlightForeground": "#C6FF00",
+    "textLink.foreground": "#C6FF00",
+    "progressBar.background": "#C6FF00",
+    "pickerGroup.foreground": "#C6FF00",
+    "tab.activeBorder": "#C6FF00"
+  },
+  "materialTheme.cache.workbench.settings": {
+    "accent": "lime",
+    "themeColours": "Darker High Contrast"
+  }
 }

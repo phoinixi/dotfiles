@@ -9,10 +9,9 @@
 | `..`      | `cd ..`                                 |
 | `~`       | `cd ~.`                                 |
 | `w`       | Go to workspace folder                  |
-| `f`       | Open finder                             |
-| `finder`  | Open finder                             |
-| `list`    | List all files colorized in long format |
-| `cleanup` | Delete .DS_Store files                  |
+| `f`       | Open finder                              |
+| `finder`   | Open finder                              |
+| `clean` 	| Delete .DS_Store files                   |
 
 ## Utilities
 
@@ -25,22 +24,21 @@
 | `vscode`     | Open Visual Studio Code                                 |
 | `update`     | To update brew and npm                                  |
 
-# Git Aliases
+## Git Aliases
 
-| Alias                   | Description                                       |
-| ----------------------- | ------------------------------------------------- |
-| `g`                     | Git command                                       |
-| `s`                     | Show git status                                   |
-| `ggpush`                | Git push into current branch                      |
-| `ggpull`                | Git pull into current branch                      |
-| `gf`                    | Git fetch                                         |
-| `gc -m "My commit msg"` | Git commit with commit message                    |
-| `gco <branch-name>`     | Git checkout to a branch                          |
-| `gco <file-name>`       | Git checkout a file                               |
-| `ga .`                  | Git add all files                                 |
-| `ga <file-name>`        | Git add a file                                    |
-| `gco -`                 | Git checkout to previous branch                   |
-| `gb -M <branch-name>`   | Git create a new branch & checkout to that branch |
-| `gb -D <branch-name>`   | Git delete a new branch                           |
-| `gd <file-name>`        | Git show diff for a particular file               |
-| `gd`                    | Git show diff for all the files                   |
+| Alias                   | Description                                       									 		|
+| ----------------------- | -----------------------------------------------------------------------	|
+| `git c`                 | `git commit -m`                                   									 		|
+| `git ca`                | `git commit -am`                                  									 		|
+| `git snapshot` 					| `!git stash save "snapshot: $(date)" && git stash apply "stash@{0}"` 		|
+| `git snapshots`  				| `!git stash list --grep snapshot`																		 		|
+| `git ci`								| `git commit`																		 										 		|
+| `git amend` 						| `git commit --amend`            																		 		|
+| `git co` 								| `git checkout`																										   		|
+| `git cob` 							| `git checkout -b`																												|
+| `git d`									| `git diff`																															|
+| `git l`									| `git log --graph --date=short`																					|
+| `git changes` 					| `git log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status` |
+| `git unstage`						| `git reset HEAD`																												|
+| `git uncommit`				 	| `git reset --soft HEAD^`																								|
+| `git st`								| `git status`																														|

@@ -1,11 +1,11 @@
 #!/bin/bash
+source utils/utils.sh
 
 ZSH=~/.oh-my-zsh
 
 if [ -d "$ZSH" ]; then
   e_warning "Oh My Zsh is already installed. skipping.."
 else
-  e_header "Installing Oh My Zsh..."
   curl -L http://install.ohmyz.sh | sh
 fi
 

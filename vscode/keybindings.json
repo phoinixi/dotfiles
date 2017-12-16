@@ -123,7 +123,9 @@
   },
   {
     "key": "cmd+shift+l",
-    "command": "HookyQR.beautify",
+    "command": "workbench.action.tasks.runTask",
+    "args": "eslint",
+    "isShellCommand": true,
     "when": "editorTextFocus && !editorReadonly"
   }
 ]

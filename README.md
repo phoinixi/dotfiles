@@ -4,7 +4,7 @@
 ## Getting started (Install in OSX)
 
 ```sh
-git clone https://github.com/francescoes/dotfiles.git ~/dotfiles && cd ~/dotfiles && bash install.sh
+git clone https://github.com/francescoes/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh
 ```
 
 ## Features

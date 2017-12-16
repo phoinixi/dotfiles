@@ -5,7 +5,8 @@ alias s="git status"
 #   NAVIGATION
 alias ..="cd .."
 alias ~="cd ~"
-alias w="cd ~/workspace"
+alias w="cd ~/extron-workspace"
+alias p="cd ~/workspace"
 
 #   TOOLS
 alias finder="open -a Finder"
@@ -13,7 +14,7 @@ alias f="open -a Finder"
 
 # DELETE
 alias rm="=rm -rf"
-alias cleanup="find . -name '*.DS_Store' -type f -ls -delete"
+alias clean="find . -name '*.DS_Store' -type f -ls -delete"
 
 # IP Address
 alias ip="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
@@ -30,11 +31,9 @@ alias zip="zip -x *.DS_Store -x *__MACOSX* -x *.AppleDouble*"
 # To kill all chrome tabs
 alias kchrome="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
-# List all files colorized in long format
-alias list='ls -l ${colorflag}'
-
 #   DEVELOPMENT
-alias vscode="open -a 'Visual Studio Code'"
+# open visual studio code
+alias vscode="code"
 
 # Chrome aliases
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"

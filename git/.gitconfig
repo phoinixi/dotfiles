@@ -14,9 +14,6 @@
   co = checkout                     # checkout
   cob = checkout -b                  # create and switch to a new branch (mnemonic: "git new branch branchname...")
 
-  # cherry-pick
-  cp = cherry-pick -x               # grab a change from a branch
-
   # diff
   d = diff                          # diff unstaged changes
 
