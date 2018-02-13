@@ -11,6 +11,7 @@
   "editor.wordWrapColumn": 100,
   "editor.autoIndent": true,
   "editor.formatOnPaste": true,
+  "workbench.editor.enablePreview": false,
   "editor.renderLineHighlight": "all",
   "eslint.packageManager": "yarn",
   "eslint.validate": [
@@ -39,7 +40,9 @@
     "tab.activeBorder": "#C6FF00"
   },
   "materialTheme.cache.workbench.settings": {
-    "accent": "lime",
-    "themeColours": "Darker High Contrast"
-  }
+    "accent": "Acid Lime",
+    "themeColours": "Default High Contrast",
+    "accentPrevious": "lime"
+  },
+  "workbench.startupEditor": "newUntitledFile"
 }

@@ -122,9 +122,16 @@
     "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "key": "cmd+shift+l",
+    "key": "cmd+shift+e",
     "command": "workbench.action.tasks.runTask",
     "args": "eslint",
+    "isShellCommand": true,
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "cmd+shift+t",
+    "command": "workbench.action.tasks.runTask",
+    "args": "tslint",
     "isShellCommand": true,
     "when": "editorTextFocus && !editorReadonly"
   }
