@@ -1,13 +1,6 @@
 #!/bin/bash
 source utils/utils.sh
 
-# GIT
-e_header "Setting up GIT"
-cp git/.gitignore ~/.gitignore_global
-cp git/.gitconfig ~/.gitconfig
-git config --global core.excludesfile "${HOME}/.gitignore_global"
-e_success "git config done!"
-
 # BREW
 if test ! $(which brew); then
   e_header "Installing Homebrew"
@@ -43,6 +36,10 @@ brew tap Homebrew/bundle
 brew bundle
 e_success "brew and cask done!"
 
+e_header "Setting GIT"
+source git/index.sh
+e_success "GIT setup done"
+
 source oh-my-zsh/index.sh
 e_success "Oh my zsh installed!"
 
@@ -54,6 +51,10 @@ e_header "Setting VSCODE"
 source vscode/index.sh
 e_success "VSCODE setup done"
 
+e_header "Setting Spectacle"
+source spectacle/index.sh
+e_success "Spectacle setup done"
+
 # Sotftware update
 e_success "Launching software update..."
 softwareupdate -ia
@@ -63,8 +64,8 @@ echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
   exit 1
-else 
+else
   sudo reboot
 fi
 
-e_thanks "Author: https://github.com/francescoes \n"
+e_thanks "Author: https://github.com/phoinixi \n"

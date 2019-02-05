@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cp git/.gitignore ~/.gitignore_global
-cp git/.gitconfig ~/.gitconfig
+cp ./git/.gitignore ~/.gitignore_global
+cp ./git/.gitconfig ~/.gitconfig
 git config --global core.excludesfile "${HOME}/.gitignore_global"
 
 printf "Type the name you would like to display in your git commits: "

@@ -122,7 +122,7 @@
     "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "key": "cmd+shift+e",
+    "key": "cmd+shift+l",
     "command": "workbench.action.tasks.runTask",
     "args": "eslint",
     "isShellCommand": true,
@@ -134,5 +134,15 @@
     "args": "tslint",
     "isShellCommand": true,
     "when": "editorTextFocus && !editorReadonly"
-  }
+  },
+  {
+    "key": "shift+cmd+b",
+    "command": "editor.action.formatSelection",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "shift+cmd+s",
+    "command": "editor.action.formatDocument",
+    "when": "editorTextFocus && !editorReadonly"
+  },
 ]
