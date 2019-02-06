@@ -23,20 +23,19 @@ git clone https://github.com/phoinixi/dotfiles.git ~/dotfiles && (cd ~/dotfiles 
 
   - Dark theme OS X and defaults override
 
-  # Aliases
-
-	`la` - To list all aliases
+# Aliases
 
 ## Folders & Finder
 
 | Alias     | Description                             |
 | --------- | --------------------------------------- |
+| `l`       | `ls -la`                                |
 | `..`      | `cd ..`                                 |
 | `~`       | `cd ~.`                                 |
 | `rm`      | `rm -rf`                                |
-| `w`       | Go to workspace folder                  |
+| `w`       | Go to `~/workspace` folder              |
 | `finder`   | Open finder in the current Folder        |
-| `clean` 	| Delete .DS_Store files                   |
+| `clean` 	| Delete `.DS_Store` files                 |
 
 ## Utilities
 
@@ -66,7 +65,6 @@ git clone https://github.com/phoinixi/dotfiles.git ~/dotfiles && (cd ~/dotfiles 
 | `git unstage`						| `git reset HEAD`																												|
 | `git uncommit`				 	| `git reset --soft HEAD^`																								|
 | `git st`								| `git status`																														|
-
 
 
 *Found a bug or want a new feature? [create an issue](https://github.com/phoinixi/dotfiles/issues/new)*
