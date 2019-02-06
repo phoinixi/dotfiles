@@ -1,7 +1,7 @@
 #   NAVIGATION
 alias ..="cd .."
 alias ~="cd ~"
-alias p="cd ~/workspace"
+alias w="cd ~/workspace"
 
 #   TOOLS
 alias finder="open ."
