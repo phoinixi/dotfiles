@@ -1,4 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-defaults write com.apple.terminal "Default Window Settings" "Solarized Dark ansi"
-defaults write com.apple.terminal "Startup Window Settings" "Solarized Dark ansi"
+theme=`cat osx/Solarized\ Dark\ ansi.terminal`
+plutil -insert "Window Settings"."Solarized Dark ansi" -xml "${theme}" ~/Library/Preferences/com.apple.Terminal.plist
+plutil -replace "Startup Window Settings" -string "Solarized Dark ansi" ~/Library/Preferences/com.apple.Terminal.plist
+plutil -replace "Default Window Settings" -string "Solarized Dark ansi" ~/Library/Preferences/com.apple.Terminal.plist
+killall cfprefsd && killall Finder
+

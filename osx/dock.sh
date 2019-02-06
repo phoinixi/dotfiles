@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# Set the icon size of Dock items to 36 pixels
-defaults write com.apple.dock tilesize -int 36
+# Set the icon size of Dock items to 40 pixels
+defaults write com.apple.dock tilesize -int 40
+
+# Set Dark Mode
+defaults write "Apple Global Domain" "AppleInterfaceStyle" "Dark"
 
 # Don’t animate opening applications from the Dock
 defaults write com.apple.dock launchanim -bool false

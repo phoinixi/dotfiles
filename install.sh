@@ -1,4 +1,5 @@
-#!/bin/bash
+
+# #!/bin/sh
 source utils/utils.sh
 
 # BREW
@@ -42,6 +43,7 @@ e_success "GIT setup done"
 
 source oh-my-zsh/index.sh
 e_success "Oh my zsh installed!"
+e_header "Setting up nodejs"
 
 e_header "Setting up mac os X"
 source osx/index.sh

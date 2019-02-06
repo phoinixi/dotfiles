@@ -1,16 +1,10 @@
-
-#   GIT
-alias s="git status"
-
 #   NAVIGATION
 alias ..="cd .."
 alias ~="cd ~"
-alias w="cd ~/extron-workspace"
 alias p="cd ~/workspace"
 
 #   TOOLS
-alias finder="open -a Finder"
-alias f="open -a Finder"
+alias finder="open ."
 
 # DELETE
 alias rm="=rm -rf"
@@ -18,7 +12,6 @@ alias clean="find . -name '*.DS_Store' -type f -ls -delete"
 
 # IP Address
 alias ip="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
-
 
 #   OS X UTILS
 
@@ -41,6 +34,6 @@ alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Goo
 alias chromium="/Applications/Chromium.app/Contents/MacOS/Chromium"
 
 # To update brew, npm, their installed packages
-alias update='brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g;
+alias update='brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g;'
 
 ## END
