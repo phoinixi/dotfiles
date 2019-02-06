@@ -1,5 +1,5 @@
 #!/bin/bash
-source utils/utils.sh
+source ../utils/utils.sh
 
 ZSH=~/.oh-my-zsh
 
@@ -10,7 +10,5 @@ else
 fi
 
 #To install ZSH themes & aliases
-e_header "Copying ZSH themes & aliases..."
-e_note "Check .aliases file for more details."
-cp oh-my-zsh/.aliases ~/.aliases
-cp oh-my-zsh/.zshrc ~/.zshrc
+cp ./.aliases ~/.aliases
+cp ./.zshrc ~/.zshrc

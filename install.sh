@@ -1,5 +1,5 @@
 
-# #!/bin/sh
+#!/bin/sh
 source utils/utils.sh
 
 # BREW
@@ -38,24 +38,28 @@ brew bundle
 e_success "brew and cask done!"
 
 e_header "Setting GIT"
-source git/index.sh
-e_success "GIT setup done"
+(cd git ; source index.sh)
+e_success "GIT setup done!"
 
-source oh-my-zsh/index.sh
+e_header "Setting Oh my zsh"
+(cd oh-my-zsh ; source index.sh)
 e_success "Oh my zsh installed!"
+
 e_header "Setting up nodejs"
+nvm  install --lts
+e_success "node setup done!"
 
 e_header "Setting up mac os X"
-source osx/index.sh
-e_success "OSX settings done"
+(cd osx ; source index.sh)
+e_success "OSX settings done!"
 
 e_header "Setting VSCODE"
-source vscode/index.sh
-e_success "VSCODE setup done"
+(cd vscode ; source index.sh)
+e_success "VSCODE setup done!"
 
 e_header "Setting Spectacle"
-source spectacle/index.sh
-e_success "Spectacle setup done"
+(cd spectacle ; source index.sh)
+e_success "Spectacle setup done!"
 
 # Sotftware update
 e_success "Launching software update..."

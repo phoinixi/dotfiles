@@ -1,9 +1,9 @@
 #!/bin/bash
-source utils/utils.sh
+source ../utils/utils.sh
 
-cp -r ./vscode/.vscode ~/.vscode
-cp ./vscode/settings.json  ~/Library/Application\ Support/Code/User/
-cp ./vscode/keybindings.json  ~/Library/Application\ Support/Code/User/
+cp -r ./.vscode ~/.vscode
+cp ./settings.json  ~/Library/Application\ Support/Code/User/
+cp ./keybindings.json  ~/Library/Application\ Support/Code/User/
 e_success "VSCODE settings copied"
 
 e_header "Installing extensions please wait..."
