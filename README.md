@@ -15,11 +15,7 @@ git clone https://github.com/phoinixi/dotfiles.git ~/dotfiles && (cd ~/dotfiles 
 
   - [Homebrew](http://brew.sh/) & [Node.JS](https://nodejs.org/en/)
 
-  - [VSCode Editor](https://github.com/phoinixi/dotfiles/tree/master/vscode) configuration
-
   - zsh theme (solarized dark) for terminal app
-
-  - [Spectacle](https://www.spectacleapp.com/) basic shortcuts
 
   - Dark theme OS X and defaults override
 

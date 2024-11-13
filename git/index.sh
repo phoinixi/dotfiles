@@ -1,6 +1,5 @@
 #!/bin/bash
 
-cp ./.gitignore ~/.gitignore_global
 cp ./.gitconfig ~/.gitconfig
 git config --global core.excludesfile "${HOME}/.gitignore_global"
 

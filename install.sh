@@ -21,14 +21,6 @@ else
     APPLEID=$1
 fi
 
-brew install mas
-
-mas signout
-e_header '🍎 Signing in with your appleID'
-mas signin --dialog $APPLEID
-mas upgrade
-e_success "apple store apps upgrade done!"
-
 e_header 'Next time you are asked for you password, enter you system passowrd'
 
 # run Brewfile
@@ -46,20 +38,12 @@ e_header "Setting Oh my zsh"
 e_success "Oh my zsh installed!"
 
 e_header "Setting up nodejs"
-nvm  install --lts
+fnm  install --lts
 e_success "node setup done!"
 
 e_header "Setting up mac os X"
 (cd osx ; source index.sh)
 e_success "OSX settings done!"
-
-e_header "Setting VSCODE"
-(cd vscode ; source index.sh)
-e_success "VSCODE setup done!"
-
-e_header "Setting Spectacle"
-(cd spectacle ; source index.sh)
-e_success "Spectacle setup done!"
 
 # Sotftware update
 e_success "Launching software update..."

@@ -11,4 +11,5 @@ fi
 
 #To install ZSH themes & aliases
 cp ./.aliases ~/.aliases
+cp ./.zprofile ~/.zprofile
 cp ./.zshrc ~/.zshrc
