@@ -74,13 +74,11 @@ The script will:
 ├── README.md           # This file
 ├── .editorconfig       # Editor code style consistency
 ├── .git/               # Git repository data
-├── .gitignore_global   # Global Git ignore patterns (symlinked from git/)
 ├── .zshrc              # Main Zsh configuration (sources OMZ, sets options, aliases)
 ├── git/
 │   ├── .gitconfig        # Git configuration (symlinked to ~/.gitconfig)
 │   └── .gitignore_global # Source for global gitignore
 ├── install.sh          # Installation and setup script
-├── oh-my-zsh/          # Oh My Zsh framework submodule/directory (managed by OMZ)
 ├── osx/                # macOS customization scripts
 │   ├── index.sh        # Main script applying macOS settings
 └── utils/              # Helper scripts for install.sh

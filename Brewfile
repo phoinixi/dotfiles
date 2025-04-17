@@ -46,7 +46,7 @@ cask "google-chrome"
 # Productivity & Utilities
 cask "raycast"
 cask "appcleaner"
-cask "docker" # Optional
+cask "docker"
 
 # Communication
 cask "telegram"
