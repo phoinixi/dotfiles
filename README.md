@@ -1,66 +1,92 @@
-# dotfiles
+#  macOS Dotfiles for Frontend Development
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Getting started (Install in OSX)
-
-```sh
-git clone https://github.com/phoinixi/dotfiles.git ~/dotfiles && (cd ~/dotfiles && ./install.sh) && rm ~/dotfiles
-```
+This repository contains personal configuration files (dotfiles) optimized for a macOS frontend development environment. It sets up Zsh with Oh My Zsh, installs useful tools and applications via Homebrew, configures Git, and applies various macOS settings.
 
 ## Features
 
-  - [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh) as your default in terminal
+- **Shell:** Zsh + Oh My Zsh with useful plugins (`git`, `node`, `npm`, `yarn`, `pnpm`, `docker`, `z`, etc.).
+- **Package Management:** Uses [Homebrew](https://brew.sh/) and `brew bundle` to manage CLI tools and GUI applications (`Brewfile`).
+- **Node.js Management:** Uses [fnm](https://github.com/Schniz/fnm) for Node.js version management.
+- **Git Configuration:** Sensible defaults and useful aliases (`git/.gitconfig`, `git/.gitignore_global`).
+- **Editor Configuration:** Basic editor consistency via `.editorconfig`.
+- **macOS Settings:** Customizes macOS defaults for Finder, Dock, keyboard, screenshots, and more via scripts in the `osx/` directory (Use with caution, review `osx/utility.sh` and `osx/dock.sh`).
+- **Installation Script:** Provides an idempotent `install.sh` script to set up Homebrew, install dependencies, and create necessary symlinks.
 
-  - [Shortcuts, Aliases](https://github.com/phoinixi/dotfiles/blob/master/docs/Aliases.md)
+## Prerequisites
 
-  - [Homebrew](http://brew.sh/) & [Node.JS](https://nodejs.org/en/)
+- macOS
+- Git (for cloning)
 
-  - zsh theme (solarized dark) for terminal app
+## Installation
 
-  - Dark theme OS X and defaults override
+1.  **Clone the repository:**
 
-# Aliases
+    ```bash
+    git clone https://github.com/phoinixi/dotfiles.git ~/.dotfiles
+    ```
 
-## Folders & Finder
+    _(Using `~/.dotfiles` is a common convention, but you can choose another location)_
 
-| Alias     | Description                             |
-| --------- | --------------------------------------- |
-| `l`       | `ls -la`                                |
-| `..`      | `cd ..`                                 |
-| `~`       | `cd ~.`                                 |
-| `rm`      | `rm -rf`                                |
-| `w`       | Go to `~/workspace` folder              |
-| `finder`   | Open finder in the current Folder        |
-| `clean` 	| Delete `.DS_Store` files                 |
+2.  **Run the installation script:**
+    ```bash
+    cd ~/.dotfiles
+    ./install.sh
+    ```
 
-## Utilities
+The script will:
 
-| Alias        | Description                                             |
-| ------------ | ------------------------------------------------------- |
-| `ip`         | Show your current ip address                            |
-| `emptytrash` | Empty the Trash on all mounted volumes and the main HDD |
-| `zip`        | Create a zip                                            |
-| `code`       | Open Visual Studio Code                                 |
-| `update`     | To update brew and npm                                  |
-| `chrome` 	   | Opens Google chrome                                     |
+- Install Homebrew if it's not already present.
+- Install all packages and applications listed in the `Brewfile`.
+- Install Oh My Zsh if it's not already present.
+- Create symbolic links from your home directory (`~/`) to the configuration files in this repository (e.g., `~/.zshrc` -> `~/.dotfiles/.zshrc`). Existing files will be backed up (e.g., `~/.zshrc.bak`).
+- Install the LTS version of Node.js using `fnm`.
+- Apply macOS settings defined in the `osx/` directory.
 
-## Git Aliases
+3.  **Restart your terminal:** Open a new terminal window/tab or run `source ~/.zshrc` for all changes to take effect.
 
-| Alias                   | Description                                       									 		|
-| ----------------------- | -----------------------------------------------------------------------	|
-| `git c`                 | `git commit -m`                                   									 		|
-| `git ca`                | `git commit -am`                                  									 		|
-| `git snapshot` 					| `!git stash save "snapshot: $(date)" && git stash apply "stash@{0}"` 		|
-| `git snapshots`  				| `!git stash list --grep snapshot`																		 		|
-| `git amend` 						| `git commit --amend`            																		 		|
-| `git co` 								| `git checkout`																										   		|
-| `git cob` 							| `git checkout -b`																												|
-| `git d`									| `git diff`																															|
-| `git l`									| `git log --graph --date=short`																					|
-| `git changes` 					| `git log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status` |
-| `git unstage`						| `git reset HEAD`																												|
-| `git uncommit`				 	| `git reset --soft HEAD^`																								|
-| `git st`								| `git status`																														|
+4.  **(Manual Step) Configure Git User:** Set your Git user name and email globally:
+    ```bash
+    git config --global user.name "Your Name"
+    git config --global user.email "your.email@example.com"
+    ```
 
+## Key Software Included (via Brewfile)
 
-*Found a bug or want a new feature? [create an issue](https://github.com/phoinixi/dotfiles/issues/new)*
+- **CLI Tools:** `fzf`, `ripgrep`, `bat`, `eza`, `httpie`, `jq`, `watchman`, `gh`, `coreutils`, etc.
+- **Frontend:** `fnm`, `pnpm`.
+- **Apps:** `hyper`, `visual-studio-code`, `cursor`, `brave-browser`, `google-chrome`, `raycast`, `docker`, `slack`, `telegram`, `whatsapp`, etc. (Check `Brewfile` for the full list).
+
+## Customization
+
+- **Brewfile:** Add or remove packages/casks by editing the `Brewfile` and re-running `brew bundle install --file=~/.dotfiles/Brewfile`.
+- **Zsh:** Add custom aliases, functions, or change plugins/theme in `.zshrc`.
+- **Git:** Modify `git/.gitconfig` for different Git settings.
+- **macOS Settings:** Edit scripts in the `osx/` directory (carefully review changes, especially in `utility.sh`). Remove the call to `source index.sh` in `install.sh` if you don't want these settings applied.
+
+## Structure Overview
+
+```
+.
+├── Brewfile            # Homebrew packages and applications
+├── Brewfile.lock.json  # Generated by brew bundle
+├── README.md           # This file
+├── .editorconfig       # Editor code style consistency
+├── .git/               # Git repository data
+├── .gitignore_global   # Global Git ignore patterns (symlinked from git/)
+├── .zshrc              # Main Zsh configuration (sources OMZ, sets options, aliases)
+├── git/
+│   ├── .gitconfig        # Git configuration (symlinked to ~/.gitconfig)
+│   └── .gitignore_global # Source for global gitignore
+├── install.sh          # Installation and setup script
+├── oh-my-zsh/          # Oh My Zsh framework submodule/directory (managed by OMZ)
+├── osx/                # macOS customization scripts
+│   ├── index.sh        # Main script applying macOS settings
+└── utils/              # Helper scripts for install.sh
+    └── utils.sh
+```
+
+## Contributing / Issues
+
+Found a bug or want a new feature? Please [create an issue](https://github.com/phoinixi/dotfiles/issues/new).

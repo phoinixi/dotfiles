@@ -1,29 +1,67 @@
-# packages
+# Core Utilities
 brew "bash"
-brew "bash-completion"
+brew "bash-completion@2"
 brew "coreutils"
-brew "curl"
-brew "fnm"
-brew "wget"
-brew "pnpm"
+brew "findutils"
+brew "gnu-sed"
+brew "zsh"
+brew "git"
 brew "gh"
-brew "node"
+brew "curl"
+brew "wget"
 
-# casks with conditionals to skip if already installed
-system("brew list --cask brave-browser || brew install --cask brave-browser")
-system("brew list --cask visual-studio-code || brew install --cask visual-studio-code")
-system("brew list --cask chatgpt || brew install --cask chatgpt")
-system("brew list --cask appcleaner || brew install --cask appcleaner")
-system("brew list --cask raycast || brew install --cask raycast")
-system("brew list --cask hyper || brew install --cask hyper")
-system("brew list --cask telegram || brew install --cask telegram")
-system("brew list --cask whatsapp || brew install --cask whatsapp")
+# Development Utilities
+brew "jq"
+brew "fzf"
+brew "ripgrep"
+brew "bat"
+brew "eza"
+# brew "lsd"
+brew "httpie"
+brew "watchman"
 
-# QuickLook extensions
-system("brew list --cask qlcolorcode || brew install --cask qlcolorcode")
-system("brew list --cask qlmarkdown || brew install --cask qlmarkdown")
-system("brew list --cask qlstephen || brew install --cask qlstephen")
-system("brew list --cask quicklook-csv || brew install --cask quicklook-csv")
-system("brew list --cask quicklook-json || brew install --cask quicklook-json")
-system("brew list --cask webpquicklook || brew install --cask webpquicklook")
-system("brew list --cask qlprettypatch || brew install --cask qlprettypatch")
+# Frontend Development
+brew "fnm"
+# brew "yarn"
+brew "pnpm"
+
+# --- Casks ---
+
+# Fonts
+cask "font-hack-nerd-font"
+
+# Terminals
+cask "hyper"
+# cask "iterm2"
+# cask "alacritty"
+
+# Editors / IDEs
+cask "visual-studio-code"
+cask "cursor"
+
+# Browsers
+cask "brave-browser"
+cask "google-chrome"
+
+# Productivity & Utilities
+cask "raycast"
+cask "appcleaner"
+cask "docker" # Optional
+
+# Communication
+cask "telegram"
+cask "whatsapp"
+cask "slack"
+
+# Other Apps
+cask "chatgpt"
+
+# QuickLook Plugins
+cask "qlcolorcode"
+cask "qlmarkdown"
+cask "qlstephen"
+cask "quicklook-json"
+cask "quicklook-csv"
+cask "webpquicklook"
+cask "qlprettypatch"
+cask "syntax-highlight"

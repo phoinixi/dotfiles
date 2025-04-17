@@ -1,51 +1,57 @@
-[color]
-  ui = true
+[core]
+  excludesfile = ~/.gitignore_global
+  autocrlf = input
+
+[init]
+  defaultBranch = main
+
 [alias]
   snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
   snapshots = !git stash list --grep snapshot
+  c = commit -m
+  ca = commit -am
+  amend = commit --amend --no-edit
+  co = checkout
+  cob = checkout -b
+  d = diff
+  l = log --graph --date=short --pretty=format:'%C(yellow)%h%Creset %C(auto)%d%Creset %s %C(green)(%cr) %C(bold blue)<%an>%Creset'
+  changes = log --pretty=format:"%h %cr %cn %Cgreen%s%Creset" --name-status
+  unstage = reset HEAD
+  uncommit = reset --soft HEAD^
+  st = status -sb
+  br = branch
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  last = log -1 HEAD
+  undo = reset HEAD~1 --mixed
 
-  # commit
-  c = commit -m                     # commit with message
-  ca = commit -am                   # commit all with message
-  amend = commit --amend            # ammend your last commit
-
-  # checkout
-  co = checkout                     # checkout
-  cob = checkout -b                  # create and switch to a new branch (mnemonic: "git new branch branchname...")
-
-  # diff
-  d = diff                          # diff unstaged changes
-
-  # log
-  l = log --graph --date=short
-  changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
-
-  # reset
-  unstage = reset HEAD              # remove files from index (tracking)
-  uncommit = reset --soft HEAD^     # go back before last commit, with files in uncommitted state
-
-  # status
-  st = status                       # status
+[color]
+  ui = true
 
 [format]
   pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
+
 [apply]
   whitespace = nowarn
+
 [branch]
   autosetupmerge = true
+
 [push]
-  # 'git push' will push the current branch to its tracking branch
-  # the usual default is to push all branches
   default = upstream
+  autoSetupRemote = true
+
+[pull]
+  rebase = true # Or false
+
+[fetch]
+  prune = true
+
+[diff]
+  mnemonicprefix = true
+  algorithm = patience
+
+[rerere]
+  enabled = true
+
 [advice]
   statusHints = false
-[diff]
-  # Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
-  # instead of a/b/c/d as prefixes for patches
-  mnemonicprefix = true
-	algorithm = patience
-[rerere]
-  # Remember my merges
-  enabled = true
-[include]
-  path = .gitconfig.user
