@@ -1,0 +1,82 @@
+{
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "One Dark"
+  },
+  "buffer_font_family": "Hack Nerd Font Mono",
+  "buffer_font_size": 14,
+  "ui_font_family": "Hack Nerd Font",
+  "ui_font_size": 14,
+  "tab_size": 2,
+  "hard_tabs": false,
+  "format_on_save": "on",
+  "ensure_final_newline_on_save": true,
+  "remove_trailing_whitespace_on_save": true,
+  "soft_wrap": "editor_width",
+  "show_whitespaces": "selection",
+  "cursor_blink": false,
+  "scrollbar": {
+    "show": "auto"
+  },
+  "preview_tabs": {
+    "enabled": true,
+    "enable_preview_from_file_finder": true
+  },
+  "terminal": {
+    "font_family": "Hack Nerd Font Mono",
+    "font_size": 13,
+    "shell": "system",
+    "working_directory": "current_project_directory"
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "vim_mode": false,
+  "auto_update": true,
+  "agent": {
+    "default_profile": "ask",
+    "always_allow_tool_actions": false,
+    "single_file_review": true
+  },
+  "language_models": {
+    "anthropic": {
+      "version": "1"
+    }
+  },
+  "languages": {
+    "TypeScript": {
+      "formatter": "prettier",
+      "format_on_save": "on"
+    },
+    "JavaScript": {
+      "formatter": "prettier",
+      "format_on_save": "on"
+    },
+    "TSX": {
+      "formatter": "prettier",
+      "format_on_save": "on"
+    },
+    "JSX": {
+      "formatter": "prettier",
+      "format_on_save": "on"
+    },
+    "JSON": {
+      "tab_size": 2
+    },
+    "Markdown": {
+      "format_on_save": "off",
+      "soft_wrap": "editor_width"
+    }
+  },
+  "file_types": {
+    "Shell Script": ["envrc", ".envrc"]
+  },
+  "git": {
+    "inline_blame": {
+      "enabled": true,
+      "delay_ms": 600
+    }
+  }
+}

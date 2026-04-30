@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "plugins": {
+    "caveman@caveman": [
+      {
+        "scope": "user"
+      }
+    ],
+    "vercel@claude-plugins-official": [
+      {
+        "scope": "user"
+      }
+    ],
+    "coderabbit@claude-plugins-official": [
+      {
+        "scope": "user"
+      }
+    ]
+  }
+}

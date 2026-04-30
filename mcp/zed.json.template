@@ -1,0 +1,13 @@
+{
+  "agent": {
+    "mcp_servers": {
+      "example-server": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-example"],
+        "env": {
+          "API_KEY": "$(kc EXAMPLE_API_KEY)"
+        }
+      }
+    }
+  }
+}

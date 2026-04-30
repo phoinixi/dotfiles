@@ -1,0 +1,12 @@
+# Raycast extensions to install on a fresh machine.
+# One slug per line — matches the URL slug at raycast.com/extensions/<slug>.
+# Comments allowed.
+#
+# Reinstall flow:
+#   1. Sign into Raycast (enables Cloud Sync if you have it).
+#   2. Or, manually open each URL below and click "Install Extension".
+
+color-picker
+kill-process
+linear
+translate

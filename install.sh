@@ -1,117 +1,103 @@
 #!/usr/bin/env zsh
-set -e
+set -eu
 
-DOTFILES_DIR=$(pwd)
+DOTFILES_DIR="${DOTFILES_DIR:-$(cd -- "$(dirname -- "${(%):-%x}")" && pwd)}"
+export DOTFILES_DIR
 
-ZSH_CUSTOM="$HOME/.oh-my-zsh"
-
+# shellcheck source=utils/utils.sh
 source "${DOTFILES_DIR}/utils/utils.sh"
 
-# Usage: link_file source_path target_path
-link_file() {
-  local source="$1"
-  local target="$2"
+# Modules in execution order. Filename prefix encodes order.
+MODULES=(
+  "00-brew"
+  "10-shell"
+  "20-git"
+  "30-claude"
+  "40-zed"
+  "45-ghostty"
+  "50-node"
+  "55-raycast"
+  "60-macos"
+)
 
-  # If target exists
-  if [ -e "$target" ]; then
-    # If target is already a symlink to the source, do nothing
-    if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
-      e_success "Symlink already exists: $target -> $source"
-      return 0
-    fi
-    # If it's a different file or symlink, back it up
-    e_arrow "Backing up existing file: $target to ${target}.bak"
-    mv "$target" "${target}.bak"
-  fi
+usage() {
+  cat <<'EOF'
+Usage: install.sh [--only <module>] [--list] [--help]
 
-  e_arrow "Creating symlink: $target -> $source"
-  ln -s "$source" "$target"
-  e_success "Symlink created: $target -> $source"
+  --only <module>   Run only the named module (e.g. claude, zed, brew).
+                    Match is by suffix after the numeric prefix.
+  --list            List available modules and exit.
+  --help            Show this help.
+
+Examples:
+  install.sh                     # run everything
+  install.sh --only claude       # re-symlink ~/.claude harness only
+  install.sh --only zed          # re-symlink ~/.config/zed only
+EOF
 }
 
-# --- Main Setup Logic ---
+list_modules() {
+  for m in "${MODULES[@]}"; do
+    printf '  %s\n' "${m#*-}"
+  done
+}
 
-# Install/Update Homebrew
-e_header "Checking Homebrew..."
-if ! command -v brew >/dev/null 2>&1; then
-  e_arrow "Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  # Add brew to PATH for the current script execution (especially on Apple Silicon)
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-e_success "Homebrew installed."
+ONLY=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --only)
+      ONLY="${2:-}"
+      shift 2
+      ;;
+    --list)
+      list_modules
+      exit 0
+      ;;
+    --help|-h)
+      usage
+      exit 0
+      ;;
+    *)
+      e_warning "Unknown argument: $1"
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+run_module() {
+  local module_file="$1"
+  local module_path="${DOTFILES_DIR}/install/${module_file}.sh"
+  if [ ! -f "$module_path" ]; then
+    e_warning "Module not found: $module_path"
+    return 1
+  fi
+  e_header "Module: ${module_file}"
+  # shellcheck disable=SC1090
+  source "$module_path"
+}
+
+if [ -n "$ONLY" ]; then
+  matched=""
+  for m in "${MODULES[@]}"; do
+    if [ "${m#*-}" = "$ONLY" ]; then
+      matched="$m"
+      break
+    fi
+  done
+  if [ -z "$matched" ]; then
+    e_warning "No module matches --only $ONLY"
+    e_warning "Available modules:"
+    list_modules
+    exit 1
+  fi
+  run_module "$matched"
 else
-  e_arrow "Updating Homebrew..."
-  brew update
-  e_success "Homebrew updated."
+  for m in "${MODULES[@]}"; do
+    run_module "$m"
+  done
 fi
 
-# Install dependencies from Brewfile
-e_header "Installing dependencies from Brewfile..."
-# Temporarily disable exit-on-error for brew bundle
-set +e
-brew bundle install --file="${DOTFILES_DIR}/Brewfile"
-BREW_BUNDLE_EXIT_CODE=$?
-# Re-enable exit-on-error
-set -e
-
-if [ $BREW_BUNDLE_EXIT_CODE -ne 0 ]; then
-  e_warning "Brew bundle install finished with errors. Some packages/casks might have failed."
-  e_warning "Please review the output above for details."
-else
-  e_success "Brewfile dependencies installed successfully."
-fi
-
-# Install Oh My Zsh
-e_header "Checking Oh My Zsh..."
-if [ ! -d "$ZSH_CUSTOM" ]; then
-  e_arrow "Installing Oh My Zsh..."
-  # Use the official installer script
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-  e_success "Oh My Zsh installed."
-else
-  e_success "Oh My Zsh already installed."
-fi
-# Note: The OMZ installer might create a default ~/.zshrc, which we'll overwrite next.
-
-# Create symlinks
-e_header "Creating symlinks..."
-
-# Zsh config
-link_file "${DOTFILES_DIR}/.zshrc" "$HOME/.zshrc"
-
-# Git config & ignore
-link_file "${DOTFILES_DIR}/git/.gitconfig" "$HOME/.gitconfig"
-link_file "${DOTFILES_DIR}/git/.gitignore_global" "$HOME/.gitignore_global"
-
-# Editor config
-link_file "${DOTFILES_DIR}/.editorconfig" "$HOME/.editorconfig"
-
-# Set up Node.js using FNM
-e_header "Setting up Node.js via FNM..."
-# Ensure fnm is available in the current shell context (might need eval)
-if command -v fnm >/dev/null 2>&1; then
-  eval "$(fnm env --use-on-cd --shell zsh)" # Ensure FNM env is loaded
-  fnm install --lts
-  fnm default lts-latest # Set the installed LTS as default
-  fnm use default
-  e_success "Node.js LTS installed and set as default via FNM."
-else
-  e_error "FNM command not found. Please check Brewfile installation."
-fi
-
-# Apply macOS settings
-e_header "Applying macOS settings..."
-# Check if osx/index.sh exists before sourcing
-if [ -f "${DOTFILES_DIR}/osx/index.sh" ]; then
-  (cd "${DOTFILES_DIR}/osx" && source index.sh)
-  e_success "macOS settings applied."
-else
-  e_warning "${DOTFILES_DIR}/osx/index.sh not found. Skipping macOS settings."
-fi
-
-e_header "Setup Complete!"
-e_success "Please restart your terminal or source ~/.zshrc for all changes to take effect."
-
+e_header "Setup complete"
+e_success "Restart your terminal or run: source ~/.zshrc"
 e_thanks "Author: https://github.com/phoinixi"
-
-exit 0

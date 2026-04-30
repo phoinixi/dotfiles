@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "defaultMode": "auto",
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(gh api *)",
+      "Bash(node *)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npm list:*)",
+      "Bash(npx eslint:*)",
+      "Bash(rg:*)",
+      "Bash(eza:*)",
+      "Bash(bat:*)"
+    ]
+  },
+  "enabledPlugins": {
+    "caveman@caveman": true,
+    "vercel@claude-plugins-official": true,
+    "coderabbit@claude-plugins-official": true
+  },
+  "effortLevel": "xhigh",
+  "editorMode": "normal",
+  "awaySummaryEnabled": false,
+  "agentPushNotifEnabled": false,
+  "skipAutoPermissionPrompt": true,
+  "preferredNotifChannel": "auto"
+}

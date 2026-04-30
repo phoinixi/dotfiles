@@ -1,0 +1,17 @@
+# Project-local. Extends ~/.gitignore_global.
+
+node_modules/
+dist/
+build/
+.next/
+.cache/
+coverage/
+
+.env
+.env.*
+!.env.example
+
+.DS_Store
+
+# Claude Code per-project local overrides (machine-specific)
+.claude/settings.local.json

@@ -2,8 +2,8 @@
 export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
 
 # Set preferred editor
-export EDITOR='cursor'
-export VISUAL='cursor'
+export EDITOR='zed'
+export VISUAL='zed'
 
 # Oh My Zsh
 export ZSH="$HOME/.oh-my-zsh"
@@ -13,10 +13,6 @@ plugins=(
   git
   node
   npm
-  yarn
-  docker
-  docker-compose
-  z
 )
 source "$ZSH/oh-my-zsh.sh"
 
@@ -24,6 +20,19 @@ source "$ZSH/oh-my-zsh.sh"
 if command -v fnm >/dev/null 2>&1; then
   eval "$(fnm env --use-on-cd --shell zsh)"
 fi
+
+# zoxide (smarter cd, replaces OMZ z plugin)
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
+
+# atuin (shell history; keep up-arrow as default zsh history)
+if command -v atuin >/dev/null 2>&1; then
+  eval "$(atuin init zsh --disable-up-arrow)"
+fi
+
+# Keychain secret fetcher. Usage: $(kc OPENAI_API_KEY)
+kc() { security find-generic-password -a "$USER" -s "$1" -w 2>/dev/null; }
 
 # Source custom aliases file if it exists
 if [ -f "$HOME/.aliases" ]; then
@@ -61,3 +70,4 @@ alias zip="zip -r -X -9"
 alias update='brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g;'
 
 ## END
+export PATH="$HOME/.local/bin:$PATH"

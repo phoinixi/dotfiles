@@ -1,86 +1,99 @@
 #!/bin/bash
+# macOS defaults. All commands write to per-user preference plists — no sudo needed.
+# Re-running is safe and idempotent.
 
-# Ask for administrator privileges upfront
-sudo -v
+set -eu
 
-# Keep-alive: update existing `sudo` time stamp until script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-# --- System ---
+# --- System / keyboard ---
 
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+# Disable smart dashes (--  →  —) — breaks code and commit messages
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
+# Disable smart quotes (" → " ") — breaks code paste
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+
+# Disable auto-capitalization
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+
+# Disable double-space → period
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
+# Holding a key repeats it — disables the accent picker (vim/code muscle memory)
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+# Faster key repeat (lower = faster). Defaults: KeyRepeat=6, InitialKeyRepeat=25
+defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
+
+# Enable full keyboard access for all controls
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# Default save panel to local disk, not iCloud
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+
+# --- Screenshots ---
 
 # Save screenshots to the Desktop in PNG format
 defaults write com.apple.screencapture location -string "$HOME/Desktop"
 defaults write com.apple.screencapture type -string "png"
 
-# Enable full keyboard access for all controls
-defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+# No drop shadow on window screenshots
+defaults write com.apple.screencapture disable-shadow -bool true
 
 # --- Finder ---
 
-# Show hidden files
 defaults write com.apple.finder AppleShowAllFiles YES
-
-# Show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-
-# Show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
-
-# Show path bar
 defaults write com.apple.finder ShowPathbar -bool true
-
-# Display full POSIX path as Finder window title
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
-
-# Keep folders on top when sorting by name
 defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
-# When performing a search, search the current folder by default
+# Search the current folder by default
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
-# Disable the warning when changing a file extension
+# Don't warn on extension change
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-# Use list view in all Finder windows by default (Other views: icnv, clmv, Flwv)
+# List view in all Finder windows (others: icnv, clmv, Flwv)
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
-# Disable the warning before emptying the Trash
+# Don't warn before emptying Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
-# Show the ~/Library folder
+# Show ~/Library
 chflags nohidden ~/Library
 
-# Avoid creating .DS_Store files on network or USB volumes
+# No .DS_Store on network or USB volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 # --- Dock ---
 
-# Set the icon size of Dock items to 50 pixels
 defaults write com.apple.dock tilesize -int 50
 
-# Use Dark Mode interface style
-defaults write "Apple Global Domain" "AppleInterfaceStyle" "Dark"
+# Dark Mode
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 
-# Don't animate opening applications from the Dock
+# Don't animate opening apps
 defaults write com.apple.dock launchanim -bool false
 
-# Show indicator lights for open applications in the Dock
+# Show indicator lights for open apps
 defaults write com.apple.dock show-process-indicators -bool true
 
-# Use suck animation for minimization (alternative to genie)
+# Suck animation for minimize
 defaults write com.apple.dock mineffect suck
 
-# Disable bouncing Dock icons
+# No bouncing icons
 defaults write com.apple.dock no-bouncing -bool true
 
-# --- Apply Changes ---
+# --- Apply ---
 
-echo "Applying Finder & Dock changes (requires restart of processes)..."
-killall Finder
-killall Dock
+echo "Applying Finder & Dock changes..."
+killall Finder >/dev/null 2>&1 || true
+killall Dock >/dev/null 2>&1 || true
 
 echo "macOS settings applied. Some changes may require a logout/restart."

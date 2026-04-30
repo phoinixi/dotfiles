@@ -1,89 +1,120 @@
-#  macOS Dotfiles for Frontend Development
+# macOS dev environment for human + AI coding agents
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This repository contains personal configuration files (dotfiles) optimized for a macOS frontend development environment. It sets up Zsh with Oh My Zsh, installs useful tools and applications via Homebrew, configures Git, and applies various macOS settings.
+Personal dotfiles, designed around one premise: developer workflows now run on **two co-equal runtimes** — the human shell and the agent harness. This repo provisions both on a fresh macOS machine in a single `./install.sh`.
 
-## Features
+## What gets provisioned
 
-- **Shell:** Zsh + Oh My Zsh with useful plugins (`git`, `node`, `npm`, `yarn`, `pnpm`, `docker`, `z`, etc.).
-- **Package Management:** Uses [Homebrew](https://brew.sh/) and `brew bundle` to manage CLI tools and GUI applications (`Brewfile`).
-- **Node.js Management:** Uses [fnm](https://github.com/Schniz/fnm) for Node.js version management.
-- **Git Configuration:** Sensible defaults and useful aliases (`git/.gitconfig`, `git/.gitignore_global`).
-- **Editor Configuration:** Basic editor consistency via `.editorconfig`.
-- **macOS Settings:** Customizes macOS defaults for Finder, Dock, keyboard, screenshots, and more via scripts in the `osx/` directory (Use with caution, review `osx/utility.sh` and `osx/dock.sh`).
-- **Installation Script:** Provides an idempotent `install.sh` script to set up Homebrew, install dependencies, and create necessary symlinks.
+**Human shell**
 
-## Prerequisites
+- zsh + Oh My Zsh, `eza`, `bat`, `ripgrep`, `fzf`, `git-delta`, `zoxide`, `atuin`, `gh`, `httpie`, `jq`/`yq`.
+- Ghostty as the terminal, Zed as the editor. VS Code kept as a backup.
+- Node.js via `fnm`, package managers `pnpm` + `npm`.
+- Sensible Git config and a comprehensive global gitignore.
+- macOS defaults (Finder / Dock / keyboard) applied via `osx/index.sh`.
 
-- macOS
-- Git (for cloning)
+**Agent harness**
 
-## Installation
+- `~/.claude/` symlinked to this repo:
+  - `settings.json` (sanitized — see [Sanitization](#sanitization))
+  - `CLAUDE.md` (global agent memory)
+  - `agents/`, `commands/`, `hooks/`, `output-styles/` for authored cognitive tools
+  - `plugins/installed_plugins.json` declaring enabled plugins (`caveman`, `vercel`, `coderabbit`)
+- Zed agent configured under `zed/settings.json`.
+- MCP server templates in `mcp/`.
+- `bin/scaffold-ai` to drop a `.claude/` + `AGENTS.md` + `.mcp.json` starter into any new repo.
 
-1.  **Clone the repository:**
+## Install
 
-    ```bash
-    git clone https://github.com/phoinixi/dotfiles.git ~/.dotfiles
-    ```
+```bash
+git clone https://github.com/phoinixi/dotfiles.git ~/workspace/dotfiles
+cd ~/workspace/dotfiles
+./install.sh
+```
 
-    _(Using `~/.dotfiles` is a common convention, but you can choose another location)_
+Run a single module instead of everything:
 
-2.  **Run the installation script:**
-    ```bash
-    cd ~/.dotfiles
-    ./install.sh
-    ```
+```bash
+./install.sh --list              # see available modules
+./install.sh --only claude       # re-symlink the Claude harness only
+./install.sh --only zed
+./install.sh --only ghostty
+```
 
-The script will:
+After install, restart your terminal (or `source ~/.zshrc`).
 
-- Install Homebrew if it's not already present.
-- Install all packages and applications listed in the `Brewfile`.
-- Install Oh My Zsh if it's not already present.
-- Create symbolic links from your home directory (`~/`) to the configuration files in this repository (e.g., `~/.zshrc` -> `~/.dotfiles/.zshrc`). Existing files will be backed up (e.g., `~/.zshrc.bak`).
-- Install the LTS version of Node.js using `fnm`.
-- Apply macOS settings defined in the `osx/` directory.
+## Sanitization
 
-3.  **Restart your terminal:** Open a new terminal window/tab or run `source ~/.zshrc` for all changes to take effect.
+`~/.claude/settings.json` mixes durable user preferences with per-project absolute paths in `permissions.allow`. Only the durable parts are tracked.
 
-4.  **(Manual Step) Configure Git User:** Set your Git user name and email globally:
-    ```bash
-    git config --global user.name "Your Name"
-    git config --global user.email "your.email@example.com"
-    ```
+- **Tracked here** (`claude/settings.json`): `enabledPlugins`, `effortLevel`, `editorMode`, generic permission patterns (`Bash(git push:*)`, `Bash(rg:*)`, `Bash(gh api *)`, etc.).
+- **Machine-local** (`~/.claude/settings.local.json`, gitignored): per-project allowlists like `Bash(node /Users/.../some-project/scripts/x.js)`. The install script never overwrites this file.
 
-## Key Software Included (via Brewfile)
+Before committing changes pulled from the live settings, run:
 
-- **CLI Tools:** `fzf`, `ripgrep`, `bat`, `eza`, `httpie`, `jq`, `watchman`, `gh`, `coreutils`, etc.
-- **Frontend:** `fnm`, `pnpm`.
-- **Apps:** `hyper`, `visual-studio-code`, `cursor`, `brave-browser`, `google-chrome`, `raycast`, `docker`, `slack`, `telegram`, `whatsapp`, etc. (Check `Brewfile` for the full list).
+```bash
+./scripts/sync-claude-settings.sh
+```
+
+It diffs live vs tracked and prints exactly which entries would be stripped.
+
+## Secrets
+
+Stored in macOS Keychain. The `.zshrc` exposes a tiny helper:
+
+```sh
+kc OPENAI_API_KEY      # prints the secret to stdout
+$(kc GITHUB_TOKEN)     # use inline as a value
+```
+
+To add a secret:
+
+```bash
+security add-generic-password -a "$USER" -s OPENAI_API_KEY -w
+```
+
+Swap to a different vault later (Bitwarden, doppler, …) without touching the rest of the repo.
+
+## Per-project scaffolding
+
+`scaffold-ai` drops the AI-aware starter into any directory:
+
+```bash
+mkdir my-app && cd my-app
+scaffold-ai .                      # uses dirname as project name
+scaffold-ai . --name my-app        # explicit name
+```
+
+It writes `.claude/settings.json`, `.claude/commands/`, `.mcp.json`, `AGENTS.md`, `.editorconfig`, `.gitignore`, replacing `{{PROJECT}}` with the chosen name.
+
+## Layout
+
+```
+.zshrc                  shell config
+Brewfile                brew bundle source
+install.sh              dispatcher (--only <module> for partial runs)
+install/                numbered modules (00-brew … 60-macos)
+scripts/                one-off helpers
+utils/                  install printers
+git/                    gitconfig + global gitignore
+osx/                    macOS defaults
+claude/                 Claude Code harness (settings, CLAUDE.md, agents, commands, hooks, output-styles, plugins)
+zed/                    Zed editor config
+ghostty/                Ghostty terminal config
+raycast/                extensions manifest (real Raycast sync = Cloud Sync in app)
+mcp/                    MCP server templates and notes
+template/project/       starter dropped into new repos by scaffold-ai
+bin/scaffold-ai         project bootstrap CLI
+AGENTS.md               contract for agents modifying this repo
+```
 
 ## Customization
 
-- **Brewfile:** Add or remove packages/casks by editing the `Brewfile` and re-running `brew bundle install --file=~/.dotfiles/Brewfile`.
-- **Zsh:** Add custom aliases, functions, or change plugins/theme in `.zshrc`.
-- **Git:** Modify `git/.gitconfig` for different Git settings.
-- **macOS Settings:** Edit scripts in the `osx/` directory (carefully review changes, especially in `utility.sh`). Remove the call to `source index.sh` in `install.sh` if you don't want these settings applied.
+- Add a CLI? Edit `Brewfile`, re-run `./install.sh --only brew`.
+- Add a Claude slash command? Drop a `.md` into `claude/commands/`. No install re-run needed (the parent dir is symlinked).
+- Add a new install step? See [`AGENTS.md`](AGENTS.md) — create `install/<NN>-<name>.sh` and append the suffix to the `MODULES` array in `install.sh`.
 
-## Structure Overview
+## Issues
 
-```
-.
-├── Brewfile            # Homebrew packages and applications
-├── Brewfile.lock.json  # Generated by brew bundle
-├── README.md           # This file
-├── .editorconfig       # Editor code style consistency
-├── .zshrc              # Main Zsh configuration (sources OMZ, sets options, aliases)
-├── git/
-│   ├── .gitconfig        # Git configuration (symlinked to ~/.gitconfig)
-│   └── .gitignore_global # Source for global gitignore
-├── install.sh          # Installation and setup script
-├── osx/                # macOS customization scripts
-│   ├── index.sh        # Main script applying macOS settings
-└── utils/              # Helper scripts for install.sh
-    └── utils.sh
-```
-
-## Contributing / Issues
-
-Found a bug or want a new feature? Please [create an issue](https://github.com/phoinixi/dotfiles/issues/new).
+[Open an issue](https://github.com/phoinixi/dotfiles/issues/new).
