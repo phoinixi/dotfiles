@@ -6,7 +6,7 @@ This file is read by Claude Code on every session. Keep it short and durable. Pe
 
 - Frontend / full-stack developer on macOS.
 - Primary editor: Zed. Terminal: Ghostty. Shell: zsh + Oh My Zsh.
-- Node.js managed by `fnm`; package managers: `pnpm`, `npm`.
+- Node.js managed by `fnm`; package managers: `npm`.
 
 ## Working style
 

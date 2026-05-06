@@ -49,13 +49,6 @@ alias cat='bat'
 #   NAVIGATION
 alias w="cd ~/workspace"
 
-# JS
-alias nfresh="rm -rf node_modules/ package-lock.json && npm install"
-alias dev="npm run dev"
-
-# TOOLS
-alias finder="open ."
-
 # DELETE
 alias rm="=rm -rf"
 alias clean="find . -name '*.DS_Store' -type f -ls -delete"
@@ -67,7 +60,7 @@ alias ip="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0
 alias zip="zip -r -X -9"
 
 # To update brew, npm, their installed packages
-alias update='brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g;'
+alias brew_update='brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g;'
 
 ## END
 export PATH="$HOME/.local/bin:$PATH"

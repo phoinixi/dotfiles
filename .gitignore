@@ -1,0 +1,3 @@
+# Per-machine plugin install registry (absolute paths, timestamps, SHAs).
+# Plugin enablement syncs via claude/settings.json -> enabledPlugins.
+claude/plugins/installed_plugins.json

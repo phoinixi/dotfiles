@@ -1,4 +1,11 @@
 {
+  "cli_default_open_behavior": "existing_window",
+  "git_panel": {
+    "dock": "left"
+  },
+  "project_panel": {
+    "dock": "left"
+  },
   "theme": {
     "mode": "system",
     "light": "One Light",

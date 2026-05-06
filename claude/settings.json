@@ -1,6 +1,5 @@
 {
   "permissions": {
-    "defaultMode": "auto",
     "allow": [
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
@@ -15,17 +14,22 @@
       "Bash(rg:*)",
       "Bash(eza:*)",
       "Bash(bat:*)"
-    ]
+    ],
+    "defaultMode": "auto"
   },
+  "model": "Opus",
   "enabledPlugins": {
     "caveman@caveman": true,
     "vercel@claude-plugins-official": true,
-    "coderabbit@claude-plugins-official": true
+    "coderabbit@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true
   },
   "effortLevel": "xhigh",
-  "editorMode": "normal",
   "awaySummaryEnabled": false,
+  "editorMode": "normal",
+  "preferredNotifChannel": "auto",
   "agentPushNotifEnabled": false,
-  "skipAutoPermissionPrompt": true,
-  "preferredNotifChannel": "auto"
+  "skipAutoPermissionPrompt": true
 }
